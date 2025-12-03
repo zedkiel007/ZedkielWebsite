@@ -15,12 +15,85 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #ffebeb;
   }
 }
 
+/* Support class-based dark mode (used by `next-themes` with `attribute="class"`) */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ffebeb;
+}
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+/* Ensure the background covers the whole viewport and stays fixed */
+body {
+  min-height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Optional subtle gradient backgrounds per theme */
+:root {
+  --bg-gradient: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+}
+
+.dark {
+  --bg-gradient: linear-gradient(180deg, #050508 0%, #071026 100%);
+}
+
+body {
+  background-image: var(--bg-gradient);
+}
+
+/* Optional background image support
+   - Put an image file in `public/` (for example `public/bg.jpg`),
+   - Then set `--bg-image: url('/bg.jpg')` below or in a component-specific CSS rule.
+   The image will sit on top of the gradient and cover the viewport. */
+:root {
+  /* Default background image (place your image in `public/`) */
+  --bg-image: url('/kiel.png');
+}
+
+.dark {
+  /* Use a dark-mode specific background image if available */
+  --bg-image: url('/kiel-dark.svg');
+}
+
+body {
+  /* Image on top of gradient. Use background-blend-mode and an overlay color to keep text readable. */
+  background-image: var(--bg-image), var(--bg-gradient);
+  background-position: center center;
+  background-size: cover, cover;
+  background-repeat: no-repeat, no-repeat;
+  background-blend-mode: overlay;
+}
+
+/* Gentle dark overlay to improve text contrast */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: rgba(0,0,0,0.15);
+  mix-blend-mode: multiply;
+}
+
+html.dark body::before {
+  background: rgba(0,0,0,0.45);
+}
+
+/* Prevent transitions and animations during initial theme class application to avoid FOUC/flicker */
+html.no-transitions *, html.no-transitions *::before, html.no-transitions *::after {
+  transition: none !important;
+  animation: none !important;
 }

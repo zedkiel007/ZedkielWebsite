@@ -25,10 +25,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        {/* Inline script to set initial theme and disable transitions before hydration to avoid flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(()=>{try{document.documentElement.classList.add('no-transitions');const t=localStorage.getItem('theme');const prefersDark=window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;if(t==='dark' || (!t && prefersDark)){document.documentElement.classList.add('dark')}else{document.documentElement.classList.remove('dark')}}catch(e){}})()`,
+          }}
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>{children}</Providers>
+
+        {/* Remove the no-transitions class after the first paint to re-enable transitions */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `requestAnimationFrame(()=>{try{document.documentElement.classList.remove('no-transitions')}catch(e){}})`,
+          }}
+        />
       </body>
     </html>
   );
