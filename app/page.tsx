@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
 import ContactForm from '@/components/contact-form';
+import Gallery from '@/components/gallery';
 import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
@@ -196,6 +197,28 @@ export default function Portfolio() {
           ))}
         </div>
       </div>
+
+      {/* Album / Certificates Gallery Section */}
+      <div className="max-w-7xl mx-auto px-8 py-16">
+        <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-12">My Album</h2>
+        <div className="bg-white dark:bg-slate-800 rounded-lg p-8">
+          <div className="space-y-8">
+            <Gallery
+              title="Certificates/Achievements"
+              images={["/Zedkiel N. Estrella.png", "/Zedkiel N. Estrella NCII.png"]}
+            />
+            <Gallery
+              title="My Mission Days"
+              images={["/kiel1.png", "/kiel2.png", "/kiel3.png", "/kiel4.png", "/kiel5.png", "/kiel6.png", "/kiel7.png", "/kiel8.png", "/kiel9.png", "/kiel10.png", "/kiel11.png", "/kiel12.png", "/kiel13.png", "/kiel14.png"]}
+            />
+            <Gallery
+              title="My Family"
+              images={["/My Family 1.png", "/My Famiy 2.png", "/My Family 3.png", "/My Family 4.png", "/My Family 5.png", "/My Family 6.png", "/My Family 7.png", "/My Family 8.png", "/My Family 9.png", "/My Family 10.png", "/My Family 11.png", "/My Family 12.png"]}
+            />
+          </div>
+        </div>
+      </div>
+      
 
       {/* Experience Section */}
       <div id="resume" className="bg-slate-100 dark:bg-slate-900 py-16">
